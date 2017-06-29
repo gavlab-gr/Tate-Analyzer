@@ -12,4 +12,8 @@ gavtate_artwork:
 
 gavtate_subject:
     path:     /subject
-    defaults: { _controller: gavtateBundle:Default:subject }
+    defaults: { _controller: gavtateBundle:Default:subject
+
+gavtate_read_subjects:
+    path:     /readsubjects
+    defaults: { _controller: gavtateBundle:Default:readSubjects }

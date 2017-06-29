@@ -3,12 +3,36 @@
 namespace gav\tateBundle\Controller;
 
 use gav\tateBundle\Entity\Artwork;
+use gav\tateBundle\Entity\Subject;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use gav\tateBundle\Entity\Artist;
 
 class DefaultController extends Controller
 {
+    public function readSubjectsAction() {
+        $em = $this->getDoctrine()->getManager();
+
+        $allArt = $em->getRepository("gavtateBundle:Artwork")->findAll();
+
+        foreach($allArt as $artwork) {
+            $accession = $artwork->getAccession();
+            $id = $artwork->getId();
+            $letter = substr($accession,0,1);
+            $second = substr($accession,1,3);
+            $nameOfFile = $accession."-".$id.".json";
+            $filename = "artwork/".$letter."/".$second."/".$nameOfFile;
+            echo $filename;
+            if (($handle = fopen($filename, "r")) !== FALSE) {
+                $contents = fread($handle, filesize($filename));
+                $json_a = json_decode($contents, true);
+                print_r($json_a);
+            }
+            echo "finished";
+            die();
+        }
+    }
+
     public function indexAction()
     {
         return $this->render('gavtateBundle:Default:index.html.twig');
@@ -159,11 +183,41 @@ class DefaultController extends Controller
                 // Get file
                 $file = $form->get('submitFile');
 
-                $string = file_get_contents($file);
-                $json_a = json_decode($string, true);
-                var_dump($json_a);
-            }
+                $data = $file->getData();
 
+                if (($handle = fopen($data, "r")) !== FALSE) {
+                    $contents = fread($handle, filesize($data));
+                    $json_a = json_decode($contents, true);
+
+                    foreach($json_a as $key => $value) {
+                        $id = $value['id'];
+                        $name = $value['name'];
+                        $parent0 = $value['parent0'];
+                        $parent1 = $value['parent1'];
+                        $parent0Obj = null;
+                        $parent0Obj = null;
+                        $level=0;
+
+                        $subject = new Subject();
+                        $subject->setId($id);
+                        $subject->setTitle($name);
+                        if($parent0 != "none") {
+                            $parent0Obj = $em->getRepository("gavtateBundle:Subject")->find($parent0);
+                            $level = 1;
+                            $subject->setParent0($parent0Obj);
+                        }
+                        if($parent1 != "none") {
+                            $parent1Obj = $em->getRepository("gavtateBundle:Subject")->find($parent0);
+                            $level = 2;
+                            $subject->setParent1($parent1Obj);
+                        }
+                        $subject->setLevel($level);
+                        $em->persist($subject);
+                    }
+                    $em->flush();
+                    fclose($handle);
+                }
+            }
         }
 
         return $this->render('gavtateBundle:Default:subject.html.twig',

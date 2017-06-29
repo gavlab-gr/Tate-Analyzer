@@ -102,6 +102,13 @@ class Artwork
      * @ORM\Column(name="url", type="string", length=1024, nullable=true)
      */
     private $url;
+    /**
+     * @var ARRAY
+     *
+     * @ORM\ManyToMany(targetEntity="Subject")
+     * @ORM\JoinTable(name="artwork_subject")
+     */
+    private $subjects;
 
     public function __construct($id, $accession, $artist, $artistRole, $title, $medium, $creditLine, $year, $acquisitionYear, $url, $width, $height, $depth, $unit) {
         $this->id = $id;
@@ -440,5 +447,39 @@ class Artwork
     public function getUnit()
     {
         return $this->unit;
+    }
+
+    /**
+     * Add subject
+     *
+     * @param \gav\tateBundle\Entity\Subject $subject
+     *
+     * @return Artwork
+     */
+    public function addSubject(\gav\tateBundle\Entity\Subject $subject)
+    {
+        $this->subjects[] = $subject;
+
+        return $this;
+    }
+
+    /**
+     * Remove subject
+     *
+     * @param \gav\tateBundle\Entity\Subject $subject
+     */
+    public function removeSubject(\gav\tateBundle\Entity\Subject $subject)
+    {
+        $this->subjects->removeElement($subject);
+    }
+
+    /**
+     * Get subjects
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSubjects()
+    {
+        return $this->subjects;
     }
 }

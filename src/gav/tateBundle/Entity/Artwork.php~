@@ -102,8 +102,15 @@ class Artwork
      * @ORM\Column(name="url", type="string", length=1024, nullable=true)
      */
     private $url;
+    /**
+     * @var ARRAY
+     *
+     * @ORM\ManyToMany(targetEntity="Subject")
+     * @ORM\JoinTable(name="artwork_subject")
+     */
+    private $subjects;
 
-    public function __construct($id, $accession, $artist, $artistRole, $title, $medium, $creditLine, $year, $acquisitionYear, $url) {
+    public function __construct($id, $accession, $artist, $artistRole, $title, $medium, $creditLine, $year, $acquisitionYear, $url, $width, $height, $depth, $unit) {
         $this->id = $id;
         $this->accession = $accession;
         $this->artist = $artist;
@@ -114,6 +121,10 @@ class Artwork
         $this->year = $year;
         $this->acquisitionYear = $acquisitionYear;
         $this->url = $url;
+        $this->width = $width;
+        $this->height = $height;
+        $this->depth = $depth;
+        $this->unit = $unit;
     }
 
     /**
@@ -344,5 +355,97 @@ class Artwork
     public function getArtist()
     {
         return $this->artist;
+    }
+
+    /**
+     * Set width
+     *
+     * @param integer $width
+     * @return Artwork
+     */
+    public function setWidth($width)
+    {
+        $this->width = $width;
+
+        return $this;
+    }
+
+    /**
+     * Get width
+     *
+     * @return integer 
+     */
+    public function getWidth()
+    {
+        return $this->width;
+    }
+
+    /**
+     * Set height
+     *
+     * @param integer $height
+     * @return Artwork
+     */
+    public function setHeight($height)
+    {
+        $this->height = $height;
+
+        return $this;
+    }
+
+    /**
+     * Get height
+     *
+     * @return integer 
+     */
+    public function getHeight()
+    {
+        return $this->height;
+    }
+
+    /**
+     * Set depth
+     *
+     * @param integer $depth
+     * @return Artwork
+     */
+    public function setDepth($depth)
+    {
+        $this->depth = $depth;
+
+        return $this;
+    }
+
+    /**
+     * Get depth
+     *
+     * @return integer 
+     */
+    public function getDepth()
+    {
+        return $this->depth;
+    }
+
+    /**
+     * Set unit
+     *
+     * @param string $unit
+     * @return Artwork
+     */
+    public function setUnit($unit)
+    {
+        $this->unit = $unit;
+
+        return $this;
+    }
+
+    /**
+     * Get unit
+     *
+     * @return string 
+     */
+    public function getUnit()
+    {
+        return $this->unit;
     }
 }
