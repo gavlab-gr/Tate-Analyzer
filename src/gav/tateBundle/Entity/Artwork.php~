@@ -1,0 +1,348 @@
+<?php
+namespace gav\tateBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="artwork")
+ * @ORM\HasLifecycleCallbacks
+ **/
+class Artwork
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="accession", type="string", length=255, nullable=false)
+     */
+    private $accession;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Artist")
+     * @ORM\JoinColumn(name="artist", referencedColumnName="id", onDelete="CASCADE", nullable=true)
+     */
+    protected $artist;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="artist_role", type="string", length=255, nullable=false)
+     */
+    private $artistRole;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="title", type="string", length=1024, nullable=false)
+     */
+    private $title;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="medium", type="string", length=255, nullable=true)
+     */
+    private $medium;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="creditLine", type="text", nullable=true)
+     */
+    private $creditLine;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="year", type="integer", nullable=true)
+     */
+    private $year;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="width", type="integer", nullable=true)
+     */
+    private $width;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="height", type="integer", nullable=true)
+     */
+    private $height;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="depth", type="integer", nullable=true)
+     */
+    private $depth;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="unit", type="string", length=50, nullable=true)
+     */
+    private $unit;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="acquisitionYear", type="integer", length=255, nullable=true)
+     */
+    private $acquisitionYear;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="url", type="string", length=1024, nullable=true)
+     */
+    private $url;
+
+    public function __construct($id, $accession, $artist, $artistRole, $title, $medium, $creditLine, $year, $acquisitionYear, $url) {
+        $this->id = $id;
+        $this->accession = $accession;
+        $this->artist = $artist;
+        $this->artistRole = $artistRole;
+        $this->title = $title;
+        $this->medium = $medium;
+        $this->creditLine = $creditLine;
+        $this->year = $year;
+        $this->acquisitionYear = $acquisitionYear;
+        $this->url = $url;
+    }
+
+    /**
+     * Set id
+     *
+     * @param integer $id
+     * @return Artwork
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set accession
+     *
+     * @param string $accession
+     * @return Artwork
+     */
+    public function setAccession($accession)
+    {
+        $this->accession = $accession;
+
+        return $this;
+    }
+
+    /**
+     * Get accession
+     *
+     * @return string 
+     */
+    public function getAccession()
+    {
+        return $this->accession;
+    }
+
+    /**
+     * Set artistRole
+     *
+     * @param string $artistRole
+     * @return Artwork
+     */
+    public function setArtistRole($artistRole)
+    {
+        $this->artistRole = $artistRole;
+
+        return $this;
+    }
+
+    /**
+     * Get artistRole
+     *
+     * @return string 
+     */
+    public function getArtistRole()
+    {
+        return $this->artistRole;
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     * @return Artwork
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string 
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Set medium
+     *
+     * @param string $medium
+     * @return Artwork
+     */
+    public function setMedium($medium)
+    {
+        $this->medium = $medium;
+
+        return $this;
+    }
+
+    /**
+     * Get medium
+     *
+     * @return string 
+     */
+    public function getMedium()
+    {
+        return $this->medium;
+    }
+
+    /**
+     * Set creditLine
+     *
+     * @param string $creditLine
+     * @return Artwork
+     */
+    public function setCreditLine($creditLine)
+    {
+        $this->creditLine = $creditLine;
+
+        return $this;
+    }
+
+    /**
+     * Get creditLine
+     *
+     * @return string 
+     */
+    public function getCreditLine()
+    {
+        return $this->creditLine;
+    }
+
+    /**
+     * Set year
+     *
+     * @param integer $year
+     * @return Artwork
+     */
+    public function setYear($year)
+    {
+        $this->year = $year;
+
+        return $this;
+    }
+
+    /**
+     * Get year
+     *
+     * @return integer 
+     */
+    public function getYear()
+    {
+        return $this->year;
+    }
+
+    /**
+     * Set acquisitionYear
+     *
+     * @param integer $acquisitionYear
+     * @return Artwork
+     */
+    public function setAcquisitionYear($acquisitionYear)
+    {
+        $this->acquisitionYear = $acquisitionYear;
+
+        return $this;
+    }
+
+    /**
+     * Get acquisitionYear
+     *
+     * @return integer 
+     */
+    public function getAcquisitionYear()
+    {
+        return $this->acquisitionYear;
+    }
+
+    /**
+     * Set url
+     *
+     * @param string $url
+     * @return Artwork
+     */
+    public function setUrl($url)
+    {
+        $this->url = $url;
+
+        return $this;
+    }
+
+    /**
+     * Get url
+     *
+     * @return string 
+     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+    /**
+     * Set artist
+     *
+     * @param \gav\tateBundle\Entity\Artist $artist
+     * @return Artwork
+     */
+    public function setArtist(\gav\tateBundle\Entity\Artist $artist = null)
+    {
+        $this->artist = $artist;
+
+        return $this;
+    }
+
+    /**
+     * Get artist
+     *
+     * @return \gav\tateBundle\Entity\Artist 
+     */
+    public function getArtist()
+    {
+        return $this->artist;
+    }
+}

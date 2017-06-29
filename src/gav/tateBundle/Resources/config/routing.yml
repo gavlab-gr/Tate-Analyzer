@@ -1,0 +1,15 @@
+gavtate_homepage:
+    path:     /
+    defaults: { _controller: gavtateBundle:Default:index }
+
+gavtate_artist:
+    path:     /artist
+    defaults: { _controller: gavtateBundle:Default:artist }
+
+gavtate_artwork:
+    path:     /artwork
+    defaults: { _controller: gavtateBundle:Default:artwork }
+
+gavtate_subject:
+    path:     /subject
+    defaults: { _controller: gavtateBundle:Default:subject }
