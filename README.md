@@ -1,5 +1,5 @@
-tate
-====
+tate gallery metadata analyzer
+==============================
 
 The project is created by gav-lab (http://gav.uop.gr) within the scope of research on cultural informatics.
 
