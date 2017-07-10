@@ -279,11 +279,12 @@ class DefaultController extends Controller
 
         $repo = $this->getDoctrine()->getRepository("gavtateBundle:Artwork");
         $query = $repo->createQueryBuilder('a')
-            ->leftJoin('a.subjects', 's')
-            ->where('s is not null')
+            ->join('a.subjects', 's')
+            ->where('s.id is not null')
+            ->setMaxResults(2500)
             ->getQuery();
         $allArt = $query->getResult();
-        $level1 = $em->getRepository("gavtateBundle:Subject")->findByLevel(0);
+        $level1 = $em->getRepository("gavtateBundle:Subject")->findByLevel(1);
         $file_content = "@RELATION level1Tate\n\n";
         $file_content .= "@ATTRIBUTE identifier NUMERIC\n";
         foreach($level1 as $level) {
@@ -292,7 +293,6 @@ class DefaultController extends Controller
         $file_content .= "\n\n@DATA\n";
 
         foreach ($allArt as $artwork) {
-
             if (sizeof($artwork->getSubjects()) == 0)
                 continue;
 
