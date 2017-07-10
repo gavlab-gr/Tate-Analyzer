@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Subject</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ subject.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ subject.title }}</td>
+            </tr>
+            <tr>
+                <th>Level</th>
+                <td>{{ subject.level }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('subject_index') }}">Back to the list</a>
+        </li>
+    </ul>
+{% endblock %}

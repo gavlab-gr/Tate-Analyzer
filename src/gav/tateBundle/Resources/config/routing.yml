@@ -1,3 +1,7 @@
+gavtate_subject:
+    resource: "@gavtateBundle/Resources/config/routing/subject.yml"
+    prefix:   /subject
+
 gavtate_homepage:
     path:     /
     defaults: { _controller: gavtateBundle:Default:index }
@@ -11,9 +15,13 @@ gavtate_artwork:
     defaults: { _controller: gavtateBundle:Default:artwork }
 
 gavtate_subject:
-    path:     /subject
-    defaults: { _controller: gavtateBundle:Default:subject
+    path:     /subjects
+    defaults: { _controller: gavtateBundle:Default:subjects }
 
 gavtate_read_subjects:
     path:     /readsubjects
     defaults: { _controller: gavtateBundle:Default:readSubjects }
+
+gavtate_arff:
+    path:     /arff
+    defaults: { _controller: gavtateBundle:Default:arff }

@@ -1,0 +1,12 @@
+subject_index:
+    path:     /
+    defaults: { _controller: "gavtateBundle:Subject:index" }
+    methods:  GET
+
+subject_show:
+    path:     /{id}/show
+    defaults: { _controller: "gavtateBundle:Subject:show" }
+    methods:  GET
+
+
+

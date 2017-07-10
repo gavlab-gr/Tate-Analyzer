@@ -42,6 +42,9 @@ class Subject
      */
     protected $parent1;
 
+    public function __toString() {
+        return $this->title." (".$this->id.")";
+}
 
     /**
      * Set id
