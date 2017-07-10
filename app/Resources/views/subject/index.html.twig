@@ -2,8 +2,10 @@
 
 {% block body %}
     <h1>Subjects list</h1>
-
-    <table>
+    <div class="count">
+        {{ pagination.getTotalItemCount }}
+    </div>
+    <table class="table table-condensed table-bordered">
         <thead>
             <tr>
                 <th>Id</th>
@@ -15,7 +17,7 @@
             </tr>
         </thead>
         <tbody>
-        {% for subject in subjects %}
+        {% for subject in pagination %}
             <tr>
                 <td><a href="{{ path('subject_show', { 'id': subject.id }) }}">{{ subject.id }}</a></td>
                 <td>{{ subject.title }}</td>
@@ -34,5 +36,7 @@
         </tbody>
     </table>
 
-    
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
 {% endblock %}
