@@ -214,7 +214,7 @@ class DefaultController extends Controller
     }
 
 
-    public function subjectAction(Request $request)
+    public function subjectsAction(Request $request)
     {
         $form = $this->createFormBuilder()
             ->add('submitFile', 'file', array('label' => 'File to Submit'))
@@ -247,7 +247,10 @@ class DefaultController extends Controller
                         $parent0Obj = null;
                         $level = 0;
 
-                        $subject = new Subject();
+                        $subject = $em->getRepository("gavtateBundle:Subject")->find($id);
+                        if($subject == null)
+                            $subject = new Subject();
+
                         $subject->setId($id);
                         $subject->setTitle($name);
                         if ($parent0 != "none") {
@@ -256,7 +259,7 @@ class DefaultController extends Controller
                             $subject->setParent0($parent0Obj);
                         }
                         if ($parent1 != "none") {
-                            $parent1Obj = $em->getRepository("gavtateBundle:Subject")->find($parent0);
+                            $parent1Obj = $em->getRepository("gavtateBundle:Subject")->find($parent1);
                             $level = 2;
                             $subject->setParent1($parent1Obj);
                         }

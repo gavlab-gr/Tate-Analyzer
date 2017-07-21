@@ -32,18 +32,36 @@ class Subject
     private $level;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Subject")
+     * @ORM\ManyToOne(targetEntity="Subject", inversedBy="children0")
      * @ORM\JoinColumn(name="subject_id0", referencedColumnName="id", onDelete="CASCADE", nullable=true)
      */
     protected $parent0;
     /**
-     * @ORM\ManyToOne(targetEntity="Subject")
+     * @ORM\ManyToOne(targetEntity="Subject", inversedBy="children1")
      * @ORM\JoinColumn(name="subject_id1", referencedColumnName="id", onDelete="CASCADE", nullable=true)
      */
     protected $parent1;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Subject", mappedBy="parent0")
+     */
+    protected $children0;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Subject", mappedBy="parent1")
+     */
+    protected $children1;
+
     public function __toString() {
-        return $this->title." (".$this->id.")";
+        $title = "";
+        if($this->parent0 != null && $this->parent1 == null) {
+            $title .= $this->parent0. " > ";
+        }
+        if($this->parent1 != null) {
+            $title .= $this->parent1. " > ";
+        }
+        $title .= $this->title." (".$this->id.")";
+        return $title;
 }
 
     /**
@@ -159,5 +177,81 @@ class Subject
     public function getParent1()
     {
         return $this->parent1;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->children0 = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->children1 = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add children0
+     *
+     * @param \gav\tateBundle\Entity\Subject $children0
+     *
+     * @return Subject
+     */
+    public function addChildren0(\gav\tateBundle\Entity\Subject $children0)
+    {
+        $this->children0[] = $children0;
+
+        return $this;
+    }
+
+    /**
+     * Remove children0
+     *
+     * @param \gav\tateBundle\Entity\Subject $children0
+     */
+    public function removeChildren0(\gav\tateBundle\Entity\Subject $children0)
+    {
+        $this->children0->removeElement($children0);
+    }
+
+    /**
+     * Get children0
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getChildren0()
+    {
+        return $this->children0;
+    }
+
+    /**
+     * Add children1
+     *
+     * @param \gav\tateBundle\Entity\Subject $children1
+     *
+     * @return Subject
+     */
+    public function addChildren1(\gav\tateBundle\Entity\Subject $children1)
+    {
+        $this->children1[] = $children1;
+
+        return $this;
+    }
+
+    /**
+     * Remove children1
+     *
+     * @param \gav\tateBundle\Entity\Subject $children1
+     */
+    public function removeChildren1(\gav\tateBundle\Entity\Subject $children1)
+    {
+        $this->children1->removeElement($children1);
+    }
+
+    /**
+     * Get children1
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getChildren1()
+    {
+        return $this->children1;
     }
 }

@@ -1,12 +1,19 @@
 subject_index:
-    path:     /
+    path:     /index
     defaults: { _controller: "gavtateBundle:Subject:index" }
+    methods:  GET
+
+subject_parent0:
+    path:     /parent0/{pid}
+    defaults: { _controller: "gavtateBundle:Subject:parent0" }
+    methods:  GET
+
+subject_parent1:
+    path:     /parent1/{pid}
+    defaults: { _controller: "gavtateBundle:Subject:parent1" }
     methods:  GET
 
 subject_show:
     path:     /{id}/show
     defaults: { _controller: "gavtateBundle:Subject:show" }
     methods:  GET
-
-
-
